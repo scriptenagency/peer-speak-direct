@@ -2,25 +2,89 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
-import { Bluetooth, Wifi, Volume2, Mic, Smartphone, Info } from 'lucide-react';
-import { useState } from 'react';
+import { Bluetooth, Wifi, Volume2, Mic, Smartphone, Info, User, LogOut } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 export const SettingsScreen = () => {
+  const { user, signOut } = useAuth();
+  const { toast } = useToast();
+  const [displayName, setDisplayName] = useState('');
   const [bluetoothEnabled, setBluetoothEnabled] = useState(true);
   const [wifiHotspotEnabled, setWifiHotspotEnabled] = useState(false);
   const [autoConnect, setAutoConnect] = useState(true);
   const [volume, setVolume] = useState([75]);
   const [micSensitivity, setMicSensitivity] = useState([60]);
 
+  useEffect(() => {
+    if (user) {
+      fetchProfile();
+    }
+  }, [user]);
+
+  const fetchProfile = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('display_name')
+        .eq('user_id', user?.id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') throw error;
+      if (data) setDisplayName(data.display_name);
+    } catch (error: any) {
+      console.error('Error fetching profile:', error);
+    }
+  };
+
+  const updateProfile = async () => {
+    if (!displayName.trim()) return;
+
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .upsert({
+          user_id: user?.id,
+          display_name: displayName.trim(),
+        });
+
+      if (error) throw error;
+      
+      toast({
+        title: "Profile Updated",
+        description: "Your display name has been updated.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to update profile.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleBluetoothScan = () => {
     console.log('Scanning for Bluetooth devices...');
-    // TODO: Implement Bluetooth device scanning
+    toast({
+      title: "Bluetooth Scan",
+      description: "Native Bluetooth scanning will be implemented for mobile deployment.",
+    });
   };
 
   const handleCreateHotspot = () => {
     console.log('Creating WiFi hotspot...');
-    // TODO: Implement WiFi hotspot creation
+    toast({
+      title: "WiFi Hotspot",
+      description: "Native WiFi hotspot creation will be implemented for mobile deployment.",
+    });
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
   };
 
   return (
@@ -34,6 +98,34 @@ export const SettingsScreen = () => {
       {/* Settings Content */}
       <div className="flex-1 overflow-y-auto p-4 space-y-6">
         
+        {/* Profile Settings */}
+        <Card className="p-4">
+          <h2 className="text-lg font-semibold text-card-foreground mb-4 flex items-center">
+            <User className="w-5 h-5 mr-2" />
+            Profile
+          </h2>
+          
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="display-name">Display Name</Label>
+              <div className="flex space-x-2">
+                <Input
+                  id="display-name"
+                  placeholder="Enter your display name"
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                />
+                <Button onClick={updateProfile} disabled={!displayName.trim()}>
+                  Save
+                </Button>
+              </div>
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <p>Email: {user?.email}</p>
+            </div>
+          </div>
+        </Card>
+
         {/* Connection Settings */}
         <Card className="p-4">
           <h2 className="text-lg font-semibold text-card-foreground mb-4 flex items-center">
@@ -160,9 +252,9 @@ export const SettingsScreen = () => {
           </h2>
           
           <div className="space-y-2 text-sm text-muted-foreground">
-            <p><strong>App Version:</strong> 1.0.0</p>
-            <p><strong>Build:</strong> Beta</p>
-            <p><strong>Connection Type:</strong> Peer-to-Peer</p>
+            <p><strong>PeerTalk v1.0</strong></p>
+            <p>Direct peer-to-peer communication app</p>
+            <p>Built for offline adventures and group activities</p>
             <p><strong>No Internet Required:</strong> ✓</p>
           </div>
         </Card>
@@ -176,6 +268,18 @@ export const SettingsScreen = () => {
             <p>3. Add them to your friends list</p>
             <p>4. Start talking with the main button!</p>
           </div>
+        </Card>
+
+        {/* Sign Out */}
+        <Card className="p-4">
+          <Button 
+            variant="destructive" 
+            onClick={handleSignOut}
+            className="w-full"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Sign Out
+          </Button>
         </Card>
       </div>
     </div>

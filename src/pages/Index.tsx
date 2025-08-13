@@ -4,12 +4,32 @@ import { TalkScreen } from '@/screens/TalkScreen';
 import { FriendsScreen } from '@/screens/FriendsScreen';
 import { MessagesScreen } from '@/screens/MessagesScreen';
 import { SettingsScreen } from '@/screens/SettingsScreen';
+import { AuthPage } from '@/pages/AuthPage';
+import { useAuth } from '@/hooks/useAuth';
 
 const Index = () => {
+  const { user, loading } = useAuth();
   const [activeTab, setActiveTab] = useState<'talk' | 'friends' | 'messages' | 'settings'>('talk');
   const [isConnected, setIsConnected] = useState(false);
   const [connectionType, setConnectionType] = useState<'bluetooth' | 'wifi' | 'none'>('none');
   const [connectedDevices, setConnectedDevices] = useState(0);
+
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-primary rounded-lg flex items-center justify-center mx-auto mb-4">
+            <span className="text-primary-foreground font-bold text-xl">PT</span>
+          </div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <AuthPage />;
+  }
 
   // Simulate connection for demo
   const handleConnect = () => {
