@@ -14,7 +14,159 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      call_logs: {
+        Row: {
+          call_type: string | null
+          caller_id: string
+          connection_type: string | null
+          created_at: string
+          duration_seconds: number | null
+          ended_at: string | null
+          id: string
+          recipient_id: string
+          started_at: string
+        }
+        Insert: {
+          call_type?: string | null
+          caller_id: string
+          connection_type?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          recipient_id: string
+          started_at?: string
+        }
+        Update: {
+          call_type?: string | null
+          caller_id?: string
+          connection_type?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          recipient_id?: string
+          started_at?: string
+        }
+        Relationships: []
+      }
+      friends: {
+        Row: {
+          connection_type: string | null
+          created_at: string
+          friend_display_name: string
+          friend_user_id: string
+          id: string
+          is_favorite: boolean | null
+          last_connected: string | null
+          user_id: string
+        }
+        Insert: {
+          connection_type?: string | null
+          created_at?: string
+          friend_display_name: string
+          friend_user_id: string
+          id?: string
+          is_favorite?: boolean | null
+          last_connected?: string | null
+          user_id: string
+        }
+        Update: {
+          connection_type?: string | null
+          created_at?: string
+          friend_display_name?: string
+          friend_user_id?: string
+          id?: string
+          is_favorite?: boolean | null
+          last_connected?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          audio_url: string | null
+          content: string | null
+          created_at: string
+          delivered_at: string | null
+          duration_seconds: number | null
+          id: string
+          is_read: boolean | null
+          message_type: string
+          recipient_id: string
+          sender_id: string
+          sent_at: string
+        }
+        Insert: {
+          audio_url?: string | null
+          content?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_read?: boolean | null
+          message_type: string
+          recipient_id: string
+          sender_id: string
+          sent_at?: string
+        }
+        Update: {
+          audio_url?: string | null
+          content?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_read?: boolean | null
+          message_type?: string
+          recipient_id?: string
+          sender_id?: string
+          sent_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bluetooth_address: string | null
+          created_at: string
+          device_name: string | null
+          display_name: string
+          id: string
+          is_online: boolean | null
+          last_seen: string | null
+          updated_at: string
+          user_id: string
+          wifi_direct_address: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bluetooth_address?: string | null
+          created_at?: string
+          device_name?: string | null
+          display_name: string
+          id?: string
+          is_online?: boolean | null
+          last_seen?: string | null
+          updated_at?: string
+          user_id: string
+          wifi_direct_address?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bluetooth_address?: string | null
+          created_at?: string
+          device_name?: string | null
+          display_name?: string
+          id?: string
+          is_online?: boolean | null
+          last_seen?: string | null
+          updated_at?: string
+          user_id?: string
+          wifi_direct_address?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
