@@ -18,6 +18,9 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        talk: "bg-gradient-primary text-primary-foreground border-4 border-primary/30 shadow-talk hover:shadow-glow transition-all duration-300",
+        signal: "bg-gradient-signal text-white border-2 border-signal-green/50 hover:border-signal-green",
+        connect: "bg-talk text-primary-foreground hover:bg-talk-active border border-talk/30 hover:border-talk-active",
       },
       size: {
         default: "h-10 px-4 py-2",

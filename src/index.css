@@ -8,89 +8,63 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Walkie-Talkie Adventure Theme - Dark by default */
+    --background: 222 22% 8%;
+    --foreground: 45 100% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 225 25% 12%;
+    --card-foreground: 45 100% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 225 25% 12%;
+    --popover-foreground: 45 100% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Adventure Orange - main brand color */
+    --primary: 25 95% 55%;
+    --primary-foreground: 222 22% 8%;
+    --primary-glow: 25 100% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Signal Green - for connected status */
+    --secondary: 142 76% 45%;
+    --secondary-foreground: 222 22% 8%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 225 15% 20%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 60 100% 50%;
+    --accent-foreground: 222 22% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Danger Red - for disconnected/emergency */
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 45 100% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 225 15% 25%;
+    --input: 225 15% 25%;
+    --ring: 25 95% 55%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom walkie-talkie colors */
+    --signal-green: 142 76% 45%;
+    --signal-red: 0 85% 60%;
+    --signal-yellow: 45 100% 50%;
+    --talk-button: 25 95% 55%;
+    --talk-button-active: 25 100% 65%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-signal: linear-gradient(135deg, hsl(var(--signal-green)), hsl(142 76% 55%));
+    --gradient-dark: linear-gradient(135deg, hsl(var(--background)), hsl(225 25% 12%));
+    
+    /* Shadows and glows */
+    --shadow-talk: 0 0 40px hsl(var(--primary) / 0.4);
+    --shadow-signal: 0 0 20px hsl(var(--signal-green) / 0.3);
+    --glow-active: 0 0 60px hsl(var(--primary-glow) / 0.6);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Animations */
+    --animation-pulse: pulse 2s infinite;
+    --animation-glow: glow 1.5s ease-in-out infinite alternate;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
@@ -100,6 +74,45 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans overflow-hidden;
+    background: linear-gradient(135deg, hsl(var(--background)), hsl(225 25% 12%));
+  }
+
+  /* Custom animations for walkie-talkie */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+    to { box-shadow: 0 0 40px hsl(var(--primary) / 0.8); }
+  }
+
+  @keyframes talk-pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 30px hsl(var(--primary) / 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
+  }
+
+  /* Talk button states */
+  .talk-button {
+    transition: var(--transition-bounce);
+    animation: var(--animation-glow);
+  }
+
+  .talk-button:active {
+    animation: talk-pulse 1s infinite;
+    transform: scale(0.98);
+  }
+
+  .signal-indicator {
+    animation: var(--animation-pulse);
+  }
+
+  /* Mobile-optimized touch targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
   }
 }

@@ -26,7 +26,8 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -52,16 +53,31 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				// Walkie-talkie specific colors
+				signal: {
+					green: 'hsl(var(--signal-green))',
+					red: 'hsl(var(--signal-red))',
+					yellow: 'hsl(var(--signal-yellow))'
+				},
+				talk: {
+					DEFAULT: 'hsl(var(--talk-button))',
+					active: 'hsl(var(--talk-button-active))'
 				}
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-signal': 'var(--gradient-signal)',
+				'gradient-dark': 'var(--gradient-dark)'
+			},
+			boxShadow: {
+				'talk': 'var(--shadow-talk)',
+				'signal': 'var(--shadow-signal)',
+				'glow': 'var(--glow-active)'
+			},
+			animation: {
+				'pulse-custom': 'var(--animation-pulse)',
+				'glow': 'var(--animation-glow)',
+				'talk-pulse': 'talk-pulse 1s infinite'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
